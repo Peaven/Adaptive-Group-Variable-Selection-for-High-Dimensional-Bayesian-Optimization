@@ -24,8 +24,8 @@ class BOReferenceSpec:
     ard: bool = False
     initial_output_scale: float = 1.0
     initial_lengthscale: float = 1.0
-    observation_noise_std: float = 0.1
-    alpha: float = 0.01
+    observation_noise_std: float = 0.01
+    alpha: float = 1e-4
     normalize_y: bool = False
     hyperparameter_fitting: str = "marginal likelihood (sklearn fmin_l_bfgs_b)"
     acquisition: str = "classical analytic Expected Improvement"
@@ -76,7 +76,7 @@ TURBO_REFERENCE_SPEC = TuRBOReferenceSpec()
 
 # Real-life objectives own their stochasticity (dataset repetitions or seeded
 # environment rollouts), so their sklearn GPs estimate observation noise from
-# the collected responses.  Synthetic reference runs keep their historical
+# the collected responses.  Synthetic reference runs use the configured
 # fixed alpha unless ``learn_noise`` is requested explicitly.
 REAL_LIFE_GP_JITTER = 1e-10
 REAL_LIFE_GP_NOISE_BOUNDS = (1e-8, 1e1)
@@ -114,7 +114,7 @@ def make_reference_bo_gp(
     learn_noise: bool = False,
     dim: Optional[int] = None,
 ) -> GaussianProcessRegressor:
-    """Construct the original MCTS-VS vanilla-BO sklearn GP.
+    """Construct the MCTS-VS-style GP with the configured benchmark variance.
 
     Kernel bounds and output normalization intentionally use sklearn's defaults,
     matching ``mcts_vs_official/baseline/vanilia_bo.py``.

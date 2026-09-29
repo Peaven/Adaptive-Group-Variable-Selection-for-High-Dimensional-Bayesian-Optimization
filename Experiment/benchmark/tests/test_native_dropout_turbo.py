@@ -29,7 +29,7 @@ def test_vae_reference_controls_are_explicit_and_used():
         max_iter=10,
         method="vae-bo",
         active_dim=2,
-        noise_variance=0.01,
+        noise_variance=1e-4,
         vae_update_interval=30,
         vae_learning_rate=0.001,
         enable_posterior_stopping=False,

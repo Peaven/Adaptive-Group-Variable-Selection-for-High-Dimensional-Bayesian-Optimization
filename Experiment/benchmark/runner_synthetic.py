@@ -4918,6 +4918,9 @@ def _algorithm_settings_summary_impl(algorithm, benchmark_name=None, device=DEVI
                     ) if algorithm.endswith("TuRBO") else "none; official LA-MCTS-BO loop",
                 }
             )
+        if algorithm == "LA-MCTS-BO":
+            result["alpha"] = float(BO_REFERENCE_SPEC.alpha)
+            result["observation_noise_std"] = float(BO_REFERENCE_SPEC.observation_noise_std)
         if algorithm == "VAE-BO":
             result["latent_dim"] = configured_d_eff
             if registered_config is not None:
@@ -5080,6 +5083,19 @@ def algorithm_settings_summary(algorithm, benchmark_name=None, device=DEVICE):
                 )
                 noise_method = None
                 noise_trace_source = None
+            elif canonical_algorithm == "LA-MCTS-BO":
+                settings.update(
+                    {
+                        "learn_observation_noise": False,
+                        "observation_noise_mode": "known fixed observation variance",
+                        "noise_estimation_method": "fixed sklearn GP alpha",
+                        "learned_noise_trace_source": None,
+                        "fixed_noise_variance": float(BO_REFERENCE_SPEC.alpha),
+                        "noise": "fixed sklearn GP alpha",
+                    }
+                )
+                noise_method = None
+                noise_trace_source = None
             elif canonical_algorithm in {"SAASBO", "MCTS-VS-SAASBO"}:
                 noise_method = "Bayesian SAAS likelihood noise inference"
                 noise_trace_source = "Bayesian SAAS acquisition likelihood"
@@ -5096,7 +5112,7 @@ def algorithm_settings_summary(algorithm, benchmark_name=None, device=DEVICE):
             else:
                 noise_method = "sklearn WhiteKernel marginal-likelihood optimization"
                 noise_trace_source = "acquisition and posterior-reporting GP"
-            if canonical_algorithm not in {"HeSBO", "ALEBO"}:
+            if canonical_algorithm not in {"HeSBO", "ALEBO", "LA-MCTS-BO"}:
                 settings.update(
                     {
                         "learn_observation_noise": True,
@@ -5109,7 +5125,7 @@ def algorithm_settings_summary(algorithm, benchmark_name=None, device=DEVICE):
                 )
             # Values inherited from the synthetic reference specification must
             # not make a real-life report look like a fixed-noise experiment.
-            if canonical_algorithm not in {"HeSBO", "ALEBO"}:
+            if canonical_algorithm not in {"HeSBO", "ALEBO", "LA-MCTS-BO"}:
                 for fixed_noise_field in (
                     "observation_noise_std",
                     "alpha",

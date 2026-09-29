@@ -592,7 +592,7 @@ def test_runner_threads_single_device_and_objective_specific_vae_controls():
     assert levy.vae_latent_acquisition_bounds == (-60.0, 60.0)
     hartmann_settings = runner.algorithm_settings_summary("VAE-BO", "hartmann3_300")
     assert hartmann_settings["vae_update_interval"] == 30
-    assert hartmann_settings["alpha"] == pytest.approx(0.01)
+    assert hartmann_settings["alpha"] == pytest.approx(1e-4)
     assert hartmann_settings["xi"] == pytest.approx(1e-4)
     assert hartmann_settings["candidate_count"] == 1024
     assert hartmann_settings["latent_training_bounds"] == [0.0, 1.0]

@@ -101,7 +101,7 @@ print("Best observed value:", max(optimizer.y))
 ```
 
 For minimization, negate your objective. `noise_variance` controls the BO
-surrogate's assumed variance (API default `1e-2`); observation noise itself
+surrogate's assumed variance (API default `1e-4`); observation noise itself
 belongs to the objective/runner. The study runners supply their own settings.
 
 ```powershell
@@ -120,7 +120,10 @@ but are excluded from the runnable default scope.
 Default algorithms: AG-VS-BO, MCTS-VS-BO, MCTS-VS-TuRBO, TuRBO, Dropout-BO,
 Dropout-TuRBO, LA-MCTS-TuRBO, VAE-BO. AG-VS uses `B=3`, `t_seq=2`, and
 `N_bad=4*N_split`. Its normal synthetic GP variance follows the configured
-observation noise. Non-default algorithms may have smaller evaluation caps;
+observation noise. Fixed BO surrogate noise variance is `1e-4` (standard
+deviation `0.01`), including MCTS-VS-BO, Dropout-BO, VAE-BO, and LA-MCTS-BO.
+Real-life learned-noise models continue to estimate noise.
+Non-default algorithms may have smaller evaluation caps;
 see `algorithm_evaluation_budget` in the shared runner. For more than 25 trials,
 all selected synthetic conditions finish a block of 25 before the next block.
 
@@ -137,7 +140,7 @@ Rastrigin6_1000, with 25 trials and 25 workers per cell.
 `N_bad` values are `6,10,14,18,20,28`; `t_seq` values are `1,2,4,6,8,10`.
 The current t_seq figures omit 1, although it remains in the run plan.
 The version comparison runs only Rastrigin6_1000, comparing merge-enabled
-and merge-disabled AG-VS with its explicit GP variance `1e-2`.
+and merge-disabled AG-VS with its explicit GP variance `1e-4`.
 Each command's `--help` documents available overrides.
 
 ## Refresh reports and validate

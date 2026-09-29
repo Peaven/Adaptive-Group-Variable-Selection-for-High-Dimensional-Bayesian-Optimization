@@ -1,4 +1,5 @@
 from ag_vs.utils import trial_seed, sobol_engine
+from Experiment.benchmark.baseline.reference_infrastructure import BO_REFERENCE_SPEC
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import ConstantKernel, Matern
 import torch
@@ -20,9 +21,8 @@ def generate_initial_data(func, n, lb, ub):
 
 
 def get_gpr_model():
-    noise = 0.1
     m52 = ConstantKernel(1.0) * Matern(length_scale=1.0, nu=2.5)
-    gpr = GaussianProcessRegressor(kernel=m52, alpha=noise**2, random_state=trial_seed())
+    gpr = GaussianProcessRegressor(kernel=m52, alpha=BO_REFERENCE_SPEC.alpha, random_state=trial_seed())
     return gpr
 
 

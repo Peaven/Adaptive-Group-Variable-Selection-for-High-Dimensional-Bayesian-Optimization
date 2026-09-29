@@ -151,7 +151,7 @@ def _agvs(effective_dimension, backend="vanillabo", **overrides):
         eff_dim=int(effective_dimension),
         max_iter=30,
         n_init=10,
-        noise_std=0.1,
+        noise_std=0.01,
         tau=0.0,
         risk_tolerances=[0.05],
         sim_mode=False,
@@ -170,7 +170,7 @@ def _agvs(effective_dimension, backend="vanillabo", **overrides):
 
 def test_reference_bo_is_the_requested_classical_ei_stack():
     gp = make_reference_bo_gp()
-    assert gp.alpha == pytest.approx(0.01)
+    assert gp.alpha == pytest.approx(1e-4)
     assert gp.normalize_y is False
     assert gp.kernel.k1.constant_value == pytest.approx(1.0)
     assert gp.kernel.k2.length_scale == pytest.approx(1.0)
@@ -180,6 +180,27 @@ def test_reference_bo_is_the_requested_classical_ei_stack():
     assert BO_REFERENCE_SPEC.candidate_count == 1024
     assert "pointwise classical analytic EI" in BO_REFERENCE_SPEC.candidate_selection
     assert "not joint qEI" in BO_REFERENCE_SPEC.candidate_selection
+
+
+def test_default_gp_variance_reaches_agvs_and_native_bo_models():
+    from ag_vs.GaussianProcess import GaussianProcessManager
+    from Experiment.benchmark.baseline.native.vanilla import get_gpr_model
+    from Experiment.benchmark.baseline.native.lamcts.Classifier import Classifier
+    from Experiment.benchmark import runner
+
+    models = [
+        GaussianProcessManager().make_gp(3),
+        get_gpr_model(),
+        Classifier([], 3, "rbf").gpr,
+    ]
+    for model in models:
+        assert model.alpha == pytest.approx(1e-4)
+    assert BO_REFERENCE_SPEC.observation_noise_std == pytest.approx(0.01)
+    assert BO_REFERENCE_SPEC.observation_noise_std**2 == pytest.approx(BO_REFERENCE_SPEC.alpha)
+    settings = runner.algorithm_settings_summary("LA-MCTS-BO", "mopta08_deff4")
+    assert settings["alpha"] == pytest.approx(1e-4)
+    # An explicit API variance remains an override, rather than being squared.
+    assert GaussianProcessManager(noise_variance=0.02).make_gp(3).alpha == pytest.approx(0.02)
 
 
 def test_reference_candidate_stream_uses_rng_seeded_pytorch_scrambled_sobol():
@@ -260,19 +281,19 @@ def test_agvs_rejects_retired_or_unfair_surfaces(override, match):
         _agvs(3, **override)
 
 
-def test_agvs_uses_supplied_noise_variance_and_defaults_to_one_e_minus_two():
+def test_agvs_uses_supplied_noise_variance_and_defaults_to_one_e_minus_four():
     default_optimizer = _agvs(3, noise_std=None)
     configured_optimizer = _agvs(
         3,
         noise_std=None,
-        noise_variance=1.0e-4,
+        noise_variance=1.0e-2,
     )
 
-    assert default_optimizer.noise_variance == pytest.approx(1.0e-2)
-    assert default_optimizer.noise_std == pytest.approx(1.0e-1)
-    assert configured_optimizer.noise_variance == pytest.approx(1.0e-4)
-    assert configured_optimizer.noise_std == pytest.approx(1.0e-2)
-    assert configured_optimizer.gp_manager.make_gp(3).alpha == pytest.approx(1.0e-4)
+    assert default_optimizer.noise_variance == pytest.approx(1.0e-4)
+    assert default_optimizer.noise_std == pytest.approx(1.0e-2)
+    assert configured_optimizer.noise_variance == pytest.approx(1.0e-2)
+    assert configured_optimizer.noise_std == pytest.approx(1.0e-1)
+    assert configured_optimizer.gp_manager.make_gp(3).alpha == pytest.approx(1.0e-2)
 
 
 def test_agvs_uses_the_mcts_acquisition_for_each_backend():
@@ -602,7 +623,7 @@ def test_mcts_objective_callback_enforces_exact_scalar_budget(inner_solver):
         calls.append(np.asarray(x, dtype=float).copy())
         return -float(np.sum(np.asarray(x, dtype=float) ** 2))
 
-    noise_variance = 0.01 if inner_solver in {"bo", "turbo"} else 1e-4
+    noise_variance = 1e-4
     optimizer = NativeMCTSVSOptimizer(
         f=objective,
         lb=np.zeros(5),

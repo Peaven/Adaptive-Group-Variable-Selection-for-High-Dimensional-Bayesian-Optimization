@@ -19,6 +19,12 @@ current reports require the native implementation identity and matching settings
 
 ## Effective settings and compatibility changes
 
+- The maintained BO adapters use fixed GP observation variance `1e-4`
+  (standard deviation `0.01`), overriding the upstream `alpha=0.01` setting.
+  This applies to MCTS-VS-BO, Dropout-BO, VAE-BO, Vanilla BO, and LA-MCTS-BO;
+  the AG-VS API default and merge comparison also use `1e-4`.
+  Real-life learned-noise models retain noise estimation. Upstream reference
+  snapshots and stored experimental results are unchanged.
 - Every trial ID 0?49 uses seed 2021?2070 for both benchmark and optimizer.
   Python, NumPy, Torch, Sobol, and JAX streams initialize with that seed and
   advance within the trial. Numerical work runs inside an isolated RNG context.

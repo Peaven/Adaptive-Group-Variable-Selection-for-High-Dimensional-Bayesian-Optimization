@@ -58,7 +58,7 @@ def test_merge_setting_reaches_both_agvs_backends(monkeypatch):
     for version, expected in version_comparison.VERSION_ENABLED.items():
         config = version_comparison.make_cell_config("rastrigin3_300", version)
         assert config["agvs_merge_enabled"] is expected
-        assert config["agvs_gp_noise_variance"] == 1e-2
+        assert config["agvs_gp_noise_variance"] == 1e-4
         assert runner.benchmark_agvs_merge_enabled(config) is expected
         for backend in ("vanillabo", "turbo"):
             optimizer = runner.make_agvs(
@@ -176,7 +176,7 @@ def test_legacy_canonical_bo_trace_is_copied_into_merge_enabled_cell(
                 "t_seq": 2,
                 "N_bad_multiplier": 4,
                 "N_bad_enabled": True,
-                "alpha": 1e-2,
+                "alpha": 1e-4,
             },
         },
     }

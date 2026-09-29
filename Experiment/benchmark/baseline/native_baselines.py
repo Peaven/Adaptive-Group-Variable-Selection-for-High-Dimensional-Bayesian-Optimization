@@ -264,7 +264,7 @@ class NativeBaselineOptimizer:
         if self.method in {"dropout-bo", "vae-bo"} and not np.isclose(
             self.noise_variance, BO_REFERENCE_SPEC.alpha
         ):
-            raise ValueError("MCTS-VS paper classical-BO adapters require GP alpha=0.01.")
+            raise ValueError("MCTS-VS paper classical-BO adapters require GP alpha=1e-4.")
         self.turbo_max_evals = int(turbo_max_evals)
         self.turbo_min_cuda = int(turbo_min_cuda)
         if self.turbo_min_cuda < 0:

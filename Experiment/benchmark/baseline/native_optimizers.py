@@ -932,7 +932,7 @@ class NativeMCTSVSOptimizer:
         if self.ipt_solver == "bo" and not np.isclose(
             self.noise_variance, BO_REFERENCE_SPEC.alpha
         ):
-            raise ValueError("MCTS-VS fair BO infrastructure requires GP alpha=0.01.")
+            raise ValueError("MCTS-VS fair BO infrastructure requires GP alpha=1e-4.")
         self.rng = np.random.default_rng(self.seed)
         self.turbo_device = str(turbo_device).strip().lower()
         self.turbo_min_cuda = int(turbo_min_cuda)

@@ -1,4 +1,5 @@
 from ag_vs.utils import trial_seed, sobol_engine
+from Experiment.benchmark.baseline.reference_infrastructure import BO_REFERENCE_SPEC
 # Copyright (c) Facebook, Inc. and its affiliates.
 # All rights reserved.
 # This source code is licensed under the license found in the
@@ -33,9 +34,8 @@ class Classifier():
         self.dims    =   dims
         
         #create a gaussian process regressor
-        noise        =   0.1
         m52          =   ConstantKernel(1.0) * Matern(length_scale=1.0, nu=2.5)
-        self.gpr     =   GaussianProcessRegressor(kernel=m52, alpha=noise**2, random_state=trial_seed()) #default to CPU
+        self.gpr     =   GaussianProcessRegressor(kernel=m52, alpha=BO_REFERENCE_SPEC.alpha, random_state=trial_seed()) #default to CPU
         self.kmean   =   KMeans(n_clusters=2, random_state=trial_seed())
         #learned boundary
         self.svm     =   SVC(kernel = kernel_type, gamma=gamma_type, random_state=trial_seed())

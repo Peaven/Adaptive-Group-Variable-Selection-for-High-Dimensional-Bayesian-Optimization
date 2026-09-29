@@ -52,7 +52,7 @@ BATCH_SIZE = 3
 T_SEQ = 2
 Q_BATCH = None
 N_BAD_MULTIPLIER = 4
-AGVS_GP_NOISE_VARIANCE = 1e-2
+AGVS_GP_NOISE_VARIANCE = 1e-4
 
 ALGORITHMS = ("AG-VS-BO", "AG-VS-TuRBO")
 BENCHMARKS = (
@@ -179,9 +179,8 @@ def make_cell_config(benchmark: str, version: str) -> dict:
     configure_runner_cell(version)
     config = runner.apply_runner_agvs_batch_policy(make_synthetic_config(benchmark))
     config["agvs_merge_enabled"] = VERSION_ENABLED[version]
-    # Existing canonical AG-VS-BO traces use alpha=1e-2.  The ablation keeps
-    # this surrogate setting fixed across both merge versions so copied and
-    # newly executed cells differ only in the merge operation.
+    # Match the synthetic GP variance across both merge versions. Only
+    # source traces with this same variance are eligible for reuse.
     config["agvs_gp_noise_variance"] = AGVS_GP_NOISE_VARIANCE
     runner.register_benchmark(benchmark, config)
     return config

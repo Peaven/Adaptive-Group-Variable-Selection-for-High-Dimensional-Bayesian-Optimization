@@ -99,7 +99,7 @@ class VanillaBOOptimizer:
         if self.acquisition not in {"ei", "expected_improvement"}:
             raise ValueError("Vanilla BO uses classical analytic Expected Improvement only.")
         if not np.isclose(self.noise_variance, BO_REFERENCE_SPEC.alpha):
-            raise ValueError("Reference Vanilla BO requires GP alpha=0.01 (assumed noise std=0.1).")
+            raise ValueError("Reference Vanilla BO requires GP alpha=1e-4 (assumed noise std=0.01).")
         if self.candidate_count != BO_REFERENCE_SPEC.candidate_count:
             raise ValueError("Reference Vanilla BO requires exactly 1024 acquisition candidates.")
         self.bo_infrastructure = bo_reference_dict()
