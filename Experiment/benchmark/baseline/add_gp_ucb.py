@@ -1,4 +1,4 @@
-"""ADD-GP-UCB adapter for the vendored kirthevasank/add-gp-bandits source.
+"""ADD-GP-UCB adapter based on the upstream kirthevasank/add-gp-bandits implementation.
 
 The original implementation is MATLAB.  This project-owned Python adapter
 retains its additive squared-exponential GP, partial decomposition search,

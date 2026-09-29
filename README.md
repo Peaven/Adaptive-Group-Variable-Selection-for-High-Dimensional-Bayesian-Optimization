@@ -204,3 +204,5 @@ paths and historical data. Retain attribution to upstream authors. Inspect the
 actual upload and its hosting URL for submission-author identifiers. Matching
 seeds does not guarantee identical wall-clock times or bitwise trajectories
 across hardware, library versions or execution environments.
+
+The ADD-GP-UCB adapter runs entirely in Python using NumPy and SciPy; MATLAB is not required. Unused upstream MATLAB source files are omitted. Original license and attribution notices remain in `Experiment/benchmark/baseline/add_gp_bandits_official/`; the reference implementation is available at https://github.com/kirthevasank/add-gp-bandits.

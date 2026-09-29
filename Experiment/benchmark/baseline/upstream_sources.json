@@ -66,7 +66,7 @@
         "add_gp_ucb.py",
         "add_gp_bandits_official/"
       ],
-      "status": "python_translation_of_vendored_matlab_rbf_orthogonal_partiallearn_direct_schedule_requires_scipy_optimize_direct"
+      "status": "python_translation_of_upstream_matlab_rbf_orthogonal_partiallearn_direct_schedule_requires_scipy_optimize_direct"
     },
     "TuRBO": {
       "upstream": [

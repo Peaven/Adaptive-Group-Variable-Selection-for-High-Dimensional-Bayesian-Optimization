@@ -92,3 +92,5 @@ fabricates study results or launches the complete study.
 Bounded validation can be repeated with `python -m Experiment.utils smoke
 --suite synthetic` or `--suite mopta`. The smoke harness records its GTBO
 group-test cap explicitly. MOPTA checks require the official Windows evaluator.
+
+The ADD-GP-UCB adapter runs entirely in Python using NumPy and SciPy; MATLAB is not required. Unused upstream MATLAB source files are omitted. Original license and attribution notices remain in `Experiment/benchmark/baseline/add_gp_bandits_official/`; the reference implementation is available at https://github.com/kirthevasank/add-gp-bandits.

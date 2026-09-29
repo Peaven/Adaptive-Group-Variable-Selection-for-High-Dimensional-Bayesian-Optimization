@@ -1142,7 +1142,7 @@ def reference_runtime_metadata(algorithm, benchmark_name=None):
             ),
             "reference_environment": (
                 "Python environment with SciPy >= 1.9 for the documented Python "
-                "translation; the retained upstream implementation is MATLAB"
+                "translation; MATLAB is not required"
             ),
             "launch_command": launchers[algorithm],
         }
@@ -4652,7 +4652,7 @@ def _algorithm_settings_summary_impl(algorithm, benchmark_name=None, device=DEVI
     if algorithm == "ADD-GP-UCB":
         return {
             "paper_style": "Additive Gaussian Process UCB (Kandasamy et al., ICML 2015)",
-            "source": "Experiment/benchmark/baseline/add_gp_ucb.py; official MATLAB source retained under add_gp_bandits_official",
+            "source": "Experiment/benchmark/baseline/add_gp_ucb.py; upstream MATLAB license and attribution retained under add_gp_bandits_official",
             "n_init": 10,
             "batch_size": 1,
             "initial_sampling": "10 uniform random points (official implementation)",
