@@ -1,0 +1,260 @@
+{
+  "schema_version": 2,
+  "scope": "Every canonical non-AG-VS algorithm accepted by Experiment/benchmark/runner_synthetic.py",
+  "vendored_revisions": {
+    "lamda-bbo/MCTS-VS": "29d32b6977d37f5e257d359373497e375befa96b",
+    "uber-research/TuRBO": "de0db39f481d9505bb3610b7b7aa0ebf7702e4a5",
+    "gtboauthors/gtbo": "fe3dca9d179e46b4d9cc7bc6954b09e1078919e8",
+    "facebook/Ax": "0.2.2 (model source only; Ax is not a runtime dependency)"
+  },
+  "algorithms": {
+    "MCTS-VS-BO": {
+      "upstream": [
+        "https://github.com/lamda-bbo/MCTS-VS"
+      ],
+      "local_paths": [
+        "native_optimizers.py",
+        "native/mctsvs/",
+        "native/turbo/",
+        "native/saasbo_component.py"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "MCTS-VS-TuRBO": {
+      "upstream": [
+        "https://github.com/lamda-bbo/MCTS-VS",
+        "https://github.com/uber-research/TuRBO"
+      ],
+      "local_paths": [
+        "native_optimizers.py",
+        "native/mctsvs/",
+        "native/turbo/",
+        "native/saasbo_component.py"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "MCTS-VS-RS": {
+      "upstream": [
+        "https://github.com/lamda-bbo/MCTS-VS"
+      ],
+      "local_paths": [
+        "native_optimizers.py",
+        "native/mctsvs/",
+        "native/turbo/",
+        "native/saasbo_component.py"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "MCTS-VS-SAASBO": {
+      "upstream": [
+        "https://github.com/lamda-bbo/MCTS-VS",
+        "https://github.com/martinjankowiak/saasbo"
+      ],
+      "local_paths": [
+        "native_optimizers.py",
+        "native/mctsvs/",
+        "native/turbo/",
+        "native/saasbo_component.py"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "ADD-GP-UCB": {
+      "upstream": [
+        "https://github.com/kirthevasank/add-gp-bandits"
+      ],
+      "local_paths": [
+        "add_gp_ucb.py",
+        "add_gp_bandits_official/"
+      ],
+      "status": "python_translation_of_vendored_matlab_rbf_orthogonal_partiallearn_direct_schedule_requires_scipy_optimize_direct"
+    },
+    "TuRBO": {
+      "upstream": [
+        "https://github.com/uber-research/TuRBO"
+      ],
+      "local_paths": [
+        "native_optimizers.py",
+        "native/turbo/"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "VanillaBO": {
+      "upstream": [
+        "https://github.com/lamda-bbo/MCTS-VS"
+      ],
+      "local_paths": [
+        "vanilla_bo_adapter.py",
+        "mcts_vs_official/baseline/vanilia_bo.py"
+      ],
+      "status": "import_safe_local_paper_adapter"
+    },
+    "RandomSearch": {
+      "upstream": [
+        "https://github.com/lamda-bbo/MCTS-VS"
+      ],
+      "local_paths": [
+        "native_optimizers.py"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "CMA-ES": {
+      "upstream": [
+        "https://github.com/CMA-ES/pycma",
+        "https://github.com/lamda-bbo/MCTS-VS"
+      ],
+      "local_paths": [
+        "native_optimizers.py",
+        "mcts_vs_official/baseline/cmaes.py"
+      ],
+      "status": "conditional_exact_central_adapter_requires_cma_3_1_0_and_numpy_1_x"
+    },
+    "Dropout-BO": {
+      "upstream": [
+        "https://github.com/lamda-bbo/MCTS-VS"
+      ],
+      "local_paths": [
+        "native_baselines.py",
+        "native/"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "Dropout-TuRBO": {
+      "upstream": [
+        "https://github.com/lamda-bbo/MCTS-VS",
+        "https://github.com/uber-research/TuRBO"
+      ],
+      "local_paths": [
+        "native_baselines.py",
+        "native/"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "Dropout-RS": {
+      "upstream": [
+        "https://github.com/lamda-bbo/MCTS-VS"
+      ],
+      "local_paths": [
+        "native_baselines.py",
+        "native/"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "LA-MCTS-TuRBO": {
+      "upstream": [
+        "https://github.com/facebookresearch/LA-MCTS",
+        "https://github.com/uber-research/TuRBO",
+        "https://github.com/lamda-bbo/MCTS-VS"
+      ],
+      "local_paths": [
+        "native_baselines.py",
+        "native/"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "SAASBO": {
+      "upstream": [
+        "https://github.com/martinjankowiak/saasbo",
+        "https://github.com/lamda-bbo/MCTS-VS"
+      ],
+      "local_paths": [
+        "native_baselines.py",
+        "native/"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "HeSBO": {
+      "upstream": [
+        "https://github.com/aminnayebi/HesBO",
+        "https://github.com/facebook/Ax"
+      ],
+      "local_paths": [
+        "embeddings.py",
+        "native/alebo_model.py"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "ALEBO": {
+      "upstream": [
+        "https://github.com/facebookresearch/alebo",
+        "https://github.com/facebook/Ax"
+      ],
+      "local_paths": [
+        "embeddings.py",
+        "native/alebo_model.py"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "VAE-BO": {
+      "upstream": [
+        "https://github.com/lamda-bbo/MCTS-VS"
+      ],
+      "local_paths": [
+        "native_baselines.py",
+        "native/"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    },
+    "GTBO": {
+      "upstream": [
+        "https://arxiv.org/html/2310.03515v1",
+        "https://github.com/gtboauthors/gtbo/tree/fe3dca9d179e46b4d9cc7bc6954b09e1078919e8"
+      ],
+      "local_paths": [
+        "gtbo.py",
+        "native/group_testing/"
+      ],
+      "status": "project_owned_native_numerical_implementation",
+      "license": "Apache-2.0; retained Google group-testing notices"
+    },
+    "LassoBO": {
+      "upstream": [
+        "https://github.com/Fsoft-AIC/LassoBO"
+      ],
+      "local_paths": [
+        "lassobo_adapter.py"
+      ],
+      "status": "existing_project_owned_implementation_retained"
+    },
+    "LA-MCTS-BO": {
+      "upstream": [
+        "https://github.com/facebookresearch/LA-MCTS",
+        "https://github.com/uber-research/TuRBO",
+        "https://github.com/lamda-bbo/MCTS-VS"
+      ],
+      "local_paths": [
+        "native_baselines.py",
+        "native/"
+      ],
+      "status": "project_owned_native_numerical_implementation"
+    }
+  },
+  "implementation_version": "native-v1",
+  "seed_policy": "shared_trial_seed_v1",
+  "supplied_reference_sha256": {
+    "alebo.py": "c3147cd85f0409fbe967c43568ab4d4d45f87cfa8bf86972462325382b7a24a0",
+    "dropout.py": "ba01fad808504a0de47177f691fe0a36b3e15ada767aee535e04a0eb0c20738e",
+    "lamcts.py": "42bb078b21b7d3cd781c06341da9ca6b09441c75ccad76c617864f191423e94d",
+    "rembo.py": "e56abc9352ebfd1fede59ad63f9723f94557e2ba444fda56968669c025b768ce",
+    "saasbo.py": "6f25d0e6787d2b5ad6aa4a8f1887d690548e6cfad45ef20a2647c98e127d2211",
+    "turbo.py": "7316218ddfbef83940236672d12a8a13db6ff8ac3491f328bf975248981de891",
+    "GTBO.pdf": "98b12f9391a1aff570a36d8a1bc56fa7e799f89d8a8b442b2c78fce7a5b3a340"
+  },
+  "validated_environment": {
+    "torch": "2.11.0+cu130",
+    "botorch": "0.18.1",
+    "gpytorch": "1.15.2",
+    "numpy": "2.2.6",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.8.0",
+    "jax": "0.11.0",
+    "numpyro": "0.21.0"
+  },
+  "license_notes": {
+    "GTBO": "Apache-2.0; native/licenses/GTBO.txt",
+    "Ax": "MIT; native/licenses/Ax.txt",
+    "TuRBO": "Uber license; native/licenses/TuRBO.txt",
+    "LA-MCTS": "Meta research license; native/licenses/LA-MCTS.txt",
+    "MCTS-VS": "No repository license file present in pinned snapshot; preserve source attribution. No new license asserted.",
+    "SAASBO": "No repository license file present in source repository; preserve source attribution. No new license asserted."
+  }
+}

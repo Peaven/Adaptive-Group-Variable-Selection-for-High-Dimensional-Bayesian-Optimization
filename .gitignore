@@ -216,3 +216,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# AG-VS local experiments and release artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.vscode/
+*.json.tmp
+.cache/
+.venv/
+environment.txt
+*.log
+Experiment/Result/
+Experiment/tables/
+dist/
